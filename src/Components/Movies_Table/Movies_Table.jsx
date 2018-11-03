@@ -1,32 +1,59 @@
 import React, { Component } from 'react';
-import Comments from "../Comments/Comments";
-import './Movies_Table.css'
+import { Link } from "react-router-dom";
 import movies from './Movies.json'
+import './Movies_Table.css'
 class MoviesTable extends Component {
 
   constructor(props){
     super(props);
     this.state = {
       movies : [],
+      nameFilter : '',
+      genreFilter : 'Action'
     }
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.setState({
-      movies
+      movies,
     })
   }
 
-  showModal = () => {
-    const element = document.getElementById('commentsModal')
-    element.classList.add('is-active');
+
+  filterMoviesByName = (e) => {
+    let searchField = e.target.value;
+    this.setState(()=>{
+      return({
+        nameFilter : searchField
+      })
+    })    
   }
+
   render() {
+    const moviesList = this.state.movies.map((movie) =>{
+      if(movie.revenue !== ""){
+        if(movie.title.indexOf(this.state.nameFilter) >-1 || movie.genre.indexOf(this.state.genreFilter) >-1){
+          return(
+            <tr key={Math.random()}>
+            <td className="cell" id={movie.title}>
+              <Link to={`/comments?movie=${movie.title}`} className="movie-name">
+                {movie.title}
+              </Link>
+            </td>
+            <td className="cell">{movie.year}</td>
+            <td className="cell">{movie.runtime}</td>
+            <td className="cell">${movie.revenue} M</td>
+            <td className="cell">{movie.rating}</td>
+            <td className="cell">{movie.genre.toString()}</td>
+          </tr>
+          )
+        }
+      }
+    })
     return (
       <div className="container">
-        <Comments />
         <div className="movie-table">
-        <table className="movie-table table is-striped  is-fullwidth">
+        <table className="movie-table table is-striped is-fullwidth">
           <thead>
             <tr>
               <th className="cell">Title</th>
@@ -40,66 +67,30 @@ class MoviesTable extends Component {
           <tbody>
             <tr>
               <td className="cell">
-                <input className="input titleSearch" type="text" placeholder="Filter By Title" style={{width : 'auto'}}/>
+                <input className="input titleSearch" type="text" placeholder="Filter By Title" style={{width : 'auto'}} onChange={this.filterMoviesByName}/>
               </td>
               <td className="cell"></td>
               <td className="cell"></td>
               <td className="cell"></td>
-              <td className="cell">
-              </td>
+              <td className="cell"></td>
               <td className="cell">
                 <div className="field">
                   <div className="control">
                     <div className="select">
                       <select>
                         <option>All</option>
-                        <option>With options</option>
+                        <option>Action</option>
+                        <option>Mystry</option>
+                        <option>Thriller</option>
+                        <option>Animation</option>
+                        <option>Comedy</option>
                       </select>
                     </div>
                   </div>
                 </div>
               </td>
             </tr>
-            <tr>
-              <td className="cell" onClick={this.showModal}>Alpha</td>
-              <td className="cell">2109</td>
-              <td className="cell">2H</td>
-              <td className="cell">2M</td>
-              <td className="cell">2.9</td>
-              <td className="cell">Action</td>
-            </tr>
-            <tr>
-              <td className="cell">Bravo</td>
-              <td className="cell">2109</td>
-              <td className="cell">2H</td>
-              <td className="cell">2M</td>
-              <td className="cell">2.9</td>
-              <td className="cell">Action</td>
-            </tr>
-            <tr>
-              <td className="cell">Bravo</td>
-              <td className="cell">2109</td>
-              <td className="cell">2H</td>
-              <td className="cell">2M</td>
-              <td className="cell">2.9</td>
-              <td className="cell">Action</td>
-            </tr>
-            <tr>
-              <td className="cell">Bravo</td>
-              <td className="cell">2109</td>
-              <td className="cell">2H</td>
-              <td className="cell">2M</td>
-              <td className="cell">2.9</td>
-              <td className="cell">Action</td>
-            </tr>
-            <tr>
-              <td className="cell">Bravo</td>
-              <td className="cell">2109</td>
-              <td className="cell">2H</td>
-              <td className="cell">2M</td>
-              <td className="cell">2.9</td>
-              <td className="cell">Action</td>
-            </tr>
+            {moviesList}
           </tbody>
         </table>
         </div>

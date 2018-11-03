@@ -8,3 +8,7 @@ table {
 .cell {
   padding: 20px !important;
 }
+
+.movie-name {
+  color: black;
+}
