@@ -1,0 +1,10 @@
+.movie-table {
+  padding-top: 2%;
+}
+table {
+  border: 1px solid #e3e7ed;
+}
+
+.cell {
+  padding: 20px !important;
+}

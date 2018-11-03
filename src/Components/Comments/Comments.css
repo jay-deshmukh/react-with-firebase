@@ -1,0 +1,44 @@
+.back {
+  font-size: 25px
+}
+
+.modal-head {
+  background-color: #1e3799 !important; 
+  color: white; 
+}
+.modal-card-title {
+  color: white !important;
+  text-align: left;
+  padding-left: 20px;
+  text-decoration: none;
+}
+.profile-image{
+  padding-left: unset !important;
+  margin-left: unset !important;
+  width: auto !important;
+}
+.profile-name {
+  padding-top: 20px;
+  background-color: #1e3799;
+  margin: 2px;
+  text-align: left;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-right: 10%;
+  color : white;
+}
+#comment-input {
+  width: 100%;
+  padding: 5%;
+}
+
+#send {
+  margin-left: -10%;
+}
+
+.plane  {
+  margin-top: 20%;
+  background-color: #1e3799;
+  color: white;
+  font-size: 25px;
+}
