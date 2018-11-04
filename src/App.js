@@ -1,13 +1,12 @@
-import React, {
-  Component,
-} from 'react';
-import MoviesTable from './Components/Movies_Table/Movies_Table';
-import Comments from './Components/Comments/Comments';
+import React, { Component} from 'react';
 import {
   BrowserRouter,
   Route,
   Switch,
 } from 'react-router-dom';
+import ErrorBoundry from './Components/Error_Boundry/Error_Boundry';
+import Comments from './Components/Comments/Comments';
+import MoviesTable from './Components/Movies_Table/Movies_Table';
 import './App.css';
 
 class App extends Component {
@@ -15,20 +14,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <MoviesTable />
-            )}
-          />
-          <Route
-            exact
-            path="/comments"
-            render={() => (
-              <Comments />
-            )}
-          />
+        <ErrorBoundry>
+          <Route exact path="/" render={() => (<MoviesTable />)}/>
+          <Route exact path="/comments" render={() => (<Comments />)}/>
+        </ErrorBoundry>        
         </Switch>
       </BrowserRouter>
     );
