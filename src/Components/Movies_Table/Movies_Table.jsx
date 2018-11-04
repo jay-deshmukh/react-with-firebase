@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import MovieRow from "../../Containers/Movie_Row";
 import movies from './Movies.json'
 import './Movies_Table.css'
 class MoviesTable extends Component {
@@ -9,7 +9,7 @@ class MoviesTable extends Component {
     this.state = {
       movies : [],
       nameFilter : '',
-      genreFilter : 'Action'
+      genreFilter : ','
     }
   }
 
@@ -20,8 +20,8 @@ class MoviesTable extends Component {
   }
 
 
-  filterMoviesByName = (e) => {
-    let searchField = e.target.value;
+  setMovieState = (e) => {
+    let searchField = e.target.value;    
     this.setState(()=>{
       return({
         nameFilter : searchField
@@ -29,25 +29,27 @@ class MoviesTable extends Component {
     })    
   }
 
+  setGenreState = (e) => {
+    const genreFilter = e.target.value;
+    if(genreFilter === 'All'){
+      this.setState(()=>{
+        return({genreFilter : ','})
+      })  
+    }else{
+      this.setState(()=>{
+        return({genreFilter})
+      })  
+    }
+  }
+
   render() {
-    const moviesList = this.state.movies.map((movie) =>{
-      if(movie.revenue !== ""){
-        if(movie.title.indexOf(this.state.nameFilter) >-1 || movie.genre.indexOf(this.state.genreFilter) >-1){
-          return(
-            <tr key={Math.random()}>
-            <td className="cell" id={movie.title}>
-              <Link to={`/comments?movie=${movie.title}`} className="movie-name">
-                {movie.title}
-              </Link>
-            </td>
-            <td className="cell">{movie.year}</td>
-            <td className="cell">{movie.runtime}</td>
-            <td className="cell">${movie.revenue} M</td>
-            <td className="cell">{movie.rating}</td>
-            <td className="cell">{movie.genre.toString()}</td>
-          </tr>
-          )
-        }
+    const moviesList = this.state.movies.map((movie) => {
+      if(movie.revenue !== "" && movie.title.indexOf(this.state.nameFilter) >-1  && movie.genre.toString().indexOf(this.state.genreFilter) >= 0){
+        return(
+          <MovieRow movie={movie} key={Math.random()}/>
+        )
+      }else{
+        return <tr key={Math.random()}></tr>;
       }
     })
     return (
@@ -67,7 +69,7 @@ class MoviesTable extends Component {
           <tbody>
             <tr>
               <td className="cell">
-                <input className="input titleSearch" type="text" placeholder="Filter By Title" style={{width : 'auto'}} onChange={this.filterMoviesByName}/>
+                <input className="input titleSearch" type="text" placeholder="Filter By Title" onChange={this.setMovieState}/>
               </td>
               <td className="cell"></td>
               <td className="cell"></td>
@@ -77,10 +79,10 @@ class MoviesTable extends Component {
                 <div className="field">
                   <div className="control">
                     <div className="select">
-                      <select>
+                      <select onChange={this.setGenreState}>
                         <option>All</option>
                         <option>Action</option>
-                        <option>Mystry</option>
+                        <option>Mystery</option>
                         <option>Thriller</option>
                         <option>Animation</option>
                         <option>Comedy</option>

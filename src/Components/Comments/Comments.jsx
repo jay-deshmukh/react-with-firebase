@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import firebase from './firebase'
+import CommentRow from "../../Containers/Comment_Row";
+import firebase from '../../firebase'
 
 import './Comments.css'
 class Comments extends Component {
@@ -45,16 +46,7 @@ class Comments extends Component {
     if(this.state.comments){
       comments = Object.keys(this.state.comments).map((key)=>{
           return(
-            <div className="columns is-mobile">
-            <div className="column is-one-fifth profile-image">
-              <figure className="image is-48x48 ">
-                <img alt="profile" className="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" />
-              </figure>
-            </div>
-              <div className="column profile-name">
-              <p>{this.state.comments[key]}</p>
-            </div>
-          </div>
+            <CommentRow comment={this.state.comments[key]} />
           )
       })
     }
