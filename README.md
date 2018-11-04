@@ -12,19 +12,18 @@
 
 # If you had more time, what would you like to improve?
 
-- Use DataTables like `https://react-table.js.org/#/story/readme` for Paginaltion Performance (Lazy Loading)
-
-- Did not use the table librarys in this project as it was for evaluation  
-- If the scope of project is big and there would be alot of flow of state would implement redux 
+- Use DataTables like `https://react-table.js.org/#/story/readme` for Paginaltion and Performance (Lazy Loading)
+- Did not use the table library in this project
+- If the scope of project is big and there would be a lot of flow of state, would implement redux 
 - Write test cases that covers more scenarios 
-- Add Error Boundries
 
 # To Run Tests 
 
-- `npm run test` to run the App test pass `a` to run all tests 
+- `npm run test` to run the App test press `a` to run all tests 
 
 
 ```
 Notes :
 - Used JSON file as there was `CORS` error from the `https://tender-mclean-00a2bd.netlify.com/web/movies.json`
 - Could have used datatables or added pagination did not do because it was an evaluation task .
+- api should support pagination for better performace 
