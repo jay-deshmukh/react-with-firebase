@@ -43,13 +43,13 @@ class MoviesTable extends Component {
   }
 
   render() {
-    const moviesList = this.state.movies.map((movie) => {
+    const moviesList = this.state.movies.map((movie , i) => {
       if(movie.revenue !== "" && movie.title.indexOf(this.state.nameFilter) >-1  && movie.genre.toString().indexOf(this.state.genreFilter) >= 0){
         return(
-          <MovieRow movie={movie} key={Math.random()}/>
+          <MovieRow movie={movie} key={i}/>
         )
       }else{
-        return <tr key={Math.random()}></tr>;
+        return <tr key={i}></tr>;
       }
     })
     return (
